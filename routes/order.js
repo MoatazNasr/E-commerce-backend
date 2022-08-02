@@ -13,7 +13,6 @@ router.post(
   verifyToken,
   authenticateUser,
   catchAsync(async (req, res) => {
-    console.log('reached to order')
     const neworder = await orderSchema(req.body);
     const neworderSaved = await neworder.save();
     if (!neworderSaved) throw new expressError(undefined, 500);
@@ -22,13 +21,13 @@ router.post(
 );
 
 router.put(
-  "/:id",
+  "/:orderid/:id",
   verifyToken,
-  authenticateAdmin,
+  authenticateUser,
   catchAsync(async (req, res) => {
-    const id = req.params.id;
+    const orderid = req.params.orderid;
     const updatedorder = await orderSchema.findByIdAndUpdate(
-      id,
+      orderid,
       {
         $set: req.body,
       },
@@ -52,9 +51,8 @@ router.get(
   "/:id",
   verifyToken,
   authenticateUser,
-  authenticateAdmin,
   catchAsync(async (req, res) => {
-    const specificUserOrders = await orderSchema.find(req.params.id);
+    const specificUserOrders = await orderSchema.find({userID:req.params.id});
     res.json(specificUserOrders).status(200);
   })
 );

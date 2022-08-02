@@ -19,6 +19,7 @@ router.post(
       const newUser = await userSchema.create({
         username: req.body.username,
         email: req.body.email,
+        phoneNumber:req.body.phoneNumber,
         password: CryptoJS.AES.encrypt(
           req.body.password,
           process.env.PASSWORD_SECRET
@@ -42,6 +43,8 @@ router.post(
         id: loggingUser._id,
         username: loggingUser.username,
         email: loggingUser.email,
+        phoneNumber: loggingUser.phoneNumber,
+        wallet: loggingUser.wallet,
         createdAt: loggingUser.createdAt,
       },
       process.env.JWT_SECRET,
