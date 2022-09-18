@@ -32,6 +32,7 @@ router.put(
     res.status(200).json(updatedcart);
   })
 );
+// delete a product from cart
 router.delete(
   "/:cartID/:productID/:size/:color/:id",
   verifyToken,
@@ -53,7 +54,22 @@ router.delete(
     res.json(modifiedCart).status(200);
   })
 );
-
+// delete the whole cart
+router.delete(
+  "/:cartID/:id",
+  verifyToken,
+  authenticateUser,
+  catchAsync(async (req, res) => {
+    const modifiedCart = await cartSchema.findByIdAndUpdate(
+      req.params.cartID,
+      {
+       products:[]
+      },
+      { new: true }
+    );
+    res.json(modifiedCart).status(200);
+  })
+);
 router.get(
   "/:id",
   verifyToken,
