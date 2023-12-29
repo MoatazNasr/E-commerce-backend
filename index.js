@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const ExpressError = require("./utils/ExpressError");
+const ExpressError = require("./utils/expressError");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/user.js");
 const productRoutes = require("./routes/product.js");
