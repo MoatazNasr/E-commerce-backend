@@ -21,8 +21,11 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+app.use(cors({origin:"https://e-commerce-frontend-production.up.railway.app}));
 app.use(express.json());
 app.use("/api/user", userRoutes);
 app.use("/api/product", productRoutes);
