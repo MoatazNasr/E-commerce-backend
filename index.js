@@ -9,7 +9,7 @@ const wishlistRoutes = require("./routes/wishlist.js");
 const orderRoutes = require("./routes/order.js");
 const stripeRoutes = require("./routes/stripe.js");
 const cors = require("cors");
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 dotenv.config();
 const app = express();
@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json(message);
 });
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("listens at port 2002");
 });
 /try it / 
